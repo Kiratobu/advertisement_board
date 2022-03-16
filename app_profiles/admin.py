@@ -4,4 +4,4 @@ from app_profiles.models import User
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['username','email']

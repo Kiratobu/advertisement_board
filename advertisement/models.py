@@ -14,8 +14,7 @@ class Advertisement(models.Model):
     views_count = models.IntegerField(verbose_name='количество просмотров', default=0)
     status = models.ForeignKey('AdvertisementStatus',default=None,null=True,related_name='advertisements',on_delete=models.CASCADE,
                                 verbose_name='статус')
-    # author = models.ForeignKey('Author',default=None,null=True,on_delete=models.CASCADE)
-    # region = models.ManyToManyField('Region',default=None,null=True,related_name='region',on_delete=models.CASCADE)
+    author = models.ForeignKey('Author',default=None,null=True,on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -26,9 +25,20 @@ class Advertisement(models.Model):
         ordering = ['title']
 
 
-# class Author(models.Model):
-#     name = models.CharField(max_length=1000)
-#     register_at = models.DateTimeField(auto_now_add=True)
+class Author(models.Model):
+    name = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.EmailField()
+    biography = models.TextField()
+    instagram = models.CharField(max_length=50,default=None,null=True)
+    twitter = models.CharField(max_length=50,default=None,null=True)
+    facebook=models.CharField(max_length=50,default=None,null=True)
+    birth_date = models.DateField(null=True,blank=True)
+
+
+    def __str__(self):
+        return f'{self.first_name},{self.last_name}'
 
 
 class AdvertisementStatus(models.Model):
@@ -37,5 +47,3 @@ class AdvertisementStatus(models.Model):
     def __str__(self):
         return self.name
 
-# class Region(models.Model):
-#     region_name = models.CharField(max_length=100)
