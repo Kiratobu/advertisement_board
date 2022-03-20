@@ -39,3 +39,7 @@ packages/
 /db.sqlite3
 /board/__init__.py
 /board/__pycache__/
+/app_users/__init__.py
+/app_users/__pycache__/
+/app_users/migrations/__init__.py
+/app_users/migrations/__pycache__/

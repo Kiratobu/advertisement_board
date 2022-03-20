@@ -1,4 +1,16 @@
 <html>
+    <title>Главная Страница</title>
+
+<body>
+    {%if request.user.is_authenticated%}
+        <h3>
+            Добро пожаловать, {{request.user.username}}
+        </h3>
+        <a href="{%url 'logout'%}">Выйти</a>
+    {%else%}
+        <h3>Вы не авторизованы на сайте</h3>
+        <a href="{%url 'another_login'%}">Войти</a>
+    {%endif%}
 
     <h1>Free Ads</h1>
 
@@ -13,6 +25,6 @@
     {%else%}
         <h2>Ads is empty</h2>
     {%endif%}
-
+</body>
     
 </html>
