@@ -1,10 +1,12 @@
-from re import template
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.views import View
 from app_users.forms import AuthForm
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.forms import UserCreationForm
+from app_users.forms import RegisterForm
+from app_users.models import Profile
 
 class AnotherLoginView(LoginView):
     template_name = 'users/login.html'
@@ -37,6 +39,39 @@ class NewLogoutView(LogoutView):
     next_page = '/'
 
 
+def register_view(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username,password=raw_password)
+            login(request, user)
+            return redirect('/')
+    else:
+        form = UserCreationForm()
+    return render(request,'users/register.html',{'form':form})
 
+def another_register_view(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            date_of_birth =form.cleaned_data.get('date_of_birth')
+            city = form.cleaned_data.get('city')
+            Profile.objects.create(
+                user = user,
+                city = city,
+                date_of_birth = date_of_birth
+            )
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username,password=raw_password)
+            login(request, user)
+            return redirect('/')
+    else:
+        form = RegisterForm()
+    return render(request,'users/register.html',{'form':form})
 
 # Create your views here.

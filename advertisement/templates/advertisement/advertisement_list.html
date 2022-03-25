@@ -5,6 +5,8 @@
     {%if request.user.is_authenticated%}
         <h3>
             Добро пожаловать, {{request.user.username}}
+            <p>День рождения:{{request.user.profile.date_of_birth}}</p>
+            <p>Город :{{request.user.profile.city}}</p>
         </h3>
         <a href="{%url 'logout'%}">Выйти</a>
     {%else%}

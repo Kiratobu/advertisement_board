@@ -43,3 +43,8 @@ packages/
 /app_users/__pycache__/
 /app_users/migrations/__init__.py
 /app_users/migrations/__pycache__/
+/app_employment/__init__.py
+/app_employment/__pycache__/
+/app_employment/migrations/__init__.py
+/app_employment/migrations/
+/app_users/migrations/0001_initial.py
